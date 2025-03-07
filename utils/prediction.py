@@ -2,16 +2,16 @@ import tensorflow as tf
 import numpy as np
 from utils.image_processing import preprocess_image
 
-# Load model chỉ một lần
+# Load the model only once
 model = tf.keras.models.load_model("models/VGG19_model.h5")
 
-# Giả sử bạn có danh sách các class
-class_names = ["Cat", "Dog", "Elephant"]  # Thay bằng danh sách của bạn
+# Assume you have a list of class names
+class_names = ["Early Pre-B", "Pre-B", "Pro-B", "Benign"]  # Replace with your actual class names
 
 def predict_image(img_path):
-    """Dự đoán class của ảnh."""
+    """Predict the class of an image."""
     processed_img = preprocess_image(img_path)
     predictions = model.predict(processed_img)
     predicted_class = class_names[np.argmax(predictions)]
-    confidence = np.max(predictions) * 100  # Tỷ lệ %
+    confidence = np.max(predictions) * 100  # Convert to percentage
     return predicted_class, confidence
